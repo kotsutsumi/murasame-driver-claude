@@ -1,0 +1,5 @@
+{"type":"system","subtype":"init","session_id":"claude-session-parent","model":"claude-test"}
+{"type":"assistant","session_id":"claude-session-parent","message":{"id":"message-agent","role":"assistant","content":[{"type":"tool_use","id":"agent-tool-1","name":"Agent","input":{"description":"Inspect repository","prompt":"Inspect the repository"}}]}}
+{"type":"assistant","session_id":"claude-session-parent","parent_tool_use_id":"agent-tool-1","message":{"id":"message-child","role":"assistant","content":[{"type":"text","text":"child summary"}]}}
+{"type":"user","session_id":"claude-session-parent","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"agent-tool-1","content":"child summary","toolUseResult":{"agentId":"child-agent-1","agentType":"Explore","status":"completed"},"is_error":false}]}}
+{"type":"result","subtype":"success","is_error":false,"result":"","session_id":"claude-session-parent"}
