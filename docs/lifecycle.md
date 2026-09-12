@@ -15,14 +15,14 @@ running
 
 `cancel()` and finalization are idempotent. A process can emit `exit`, stream
 EOF, `close`, timeout, and cancellation in any nearby order; the driver waits
-for process exit and stdout EOF, then performs finalization once.
+for process exit and stdout/stderr EOF, then performs finalization once.
 
 ## Finalization order
 
 ```text
 last stdout data
     ↓
-stdout EOF and process exit known
+stdout/stderr EOF and process exit known
     ↓
 adapter.flush()
     ↓

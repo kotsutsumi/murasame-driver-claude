@@ -50,4 +50,31 @@ describe("Claude stdout pipeline", () => {
     expect(diagnostics).toContain("STDERR_TRUNCATED");
     await driver.dispose();
   });
+
+  test("waits for stderr drain before resolving the run", async () => {
+    const runtime = makeRuntime();
+    const spawner = new FakeSpawner();
+    const driver = createClaudeDriver({ runtime, spawner });
+    const run = driver.run({ prompt: "hello" });
+    const child = spawner.children[0];
+    if (child === undefined) throw new Error("fake child was not created");
+
+    child.stdout.end();
+    child.emitExit(2);
+    let resolved = false;
+    const resultPromise = run.result.then((result) => {
+      resolved = true;
+      return result;
+    });
+    await Promise.resolve();
+    expect(resolved).toBe(false);
+
+    child.stderr.push("late diagnostic");
+    child.stderr.end();
+    child.emitClose(2);
+
+    const result = await resultPromise;
+    expect(result.stderr).toBe("late diagnostic");
+    await driver.dispose();
+  });
 });

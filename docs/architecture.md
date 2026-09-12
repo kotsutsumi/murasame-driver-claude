@@ -15,7 +15,7 @@ ClaudeDriver
   │                   └─▶ runtime.ingestMany(MurasameEvent[])
   └─ stderr ──▶ bounded diagnostic tail
 
-process exit + stdout EOF
+process exit + stdout/stderr EOF
   │
   ├─ adapter.flush()
   ├─ adapter.finish()

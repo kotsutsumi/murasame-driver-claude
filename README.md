@@ -83,8 +83,8 @@ does not create a frame scheduler; callers own application/UI timing.
 `run.result` resolves to a result for process success, failure, and
 cancellation. Configuration errors throw from `run()`. Process-level failure
 does not cause the promise to reject. Before resolving, the driver drains
-stdout, calls `adapter.flush()`, calls `adapter.finish()`, and ingests those
-events into the runtime.
+stdout and stderr, calls `adapter.flush()`, calls `adapter.finish()`, and ingests
+those events into the runtime.
 
 The adapter remains responsible for Claude result semantics. The driver only
 classifies process control outcomes such as spawn failure, signal exit,
